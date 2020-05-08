@@ -45,7 +45,7 @@
         app:layout_constraintWidth_percent=".6" />
 
     <EditText
-        android:id="@+id/phoneNumberEditText"
+        android:id="@+id/regPhoneNumberEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/appLogo" />
 
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/regPasswordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -78,7 +78,7 @@
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@id/leftGuideLine"
         app:layout_constraintRight_toRightOf="@id/rightGuideLine"
-        app:layout_constraintTop_toBottomOf="@id/phoneNumberEditText" />
+        app:layout_constraintTop_toBottomOf="@id/regPhoneNumberEditText" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/rememberMeCheckBox"
@@ -91,7 +91,7 @@
         android:textColor="@color/DeepPink"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@id/leftGuideLine"
-        app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
+        app:layout_constraintTop_toBottomOf="@id/regPasswordEditText" />
 
     <TextView
         android:id="@+id/forgotPasswordTextView"

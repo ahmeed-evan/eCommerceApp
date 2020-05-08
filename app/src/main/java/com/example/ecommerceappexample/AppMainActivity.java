@@ -26,11 +26,11 @@ public class AppMainActivity extends AppCompatActivity {
 
     @OnClick(R.id.alreadyRegisteredButton)
     public void onAlreadyRegisteredButtonClicked(){
-       startActivity(new Intent(this,Login_Activity.class));
+       startActivity(new Intent(AppMainActivity.this,Login_Activity.class));
     }
 
     @OnClick(R.id.joinButton)
     public void onJoinButtonClicked() {
-        startActivity(new Intent(this, RegisterActivity.class));
+        startActivity(new Intent(AppMainActivity.this, RegisterActivity.class));
     }
 }

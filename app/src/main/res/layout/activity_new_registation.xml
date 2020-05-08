@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/appLogo" />
 
     <EditText
-        android:id="@+id/phoneNumberEditText"
+        android:id="@+id/regPhoneNumberEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@id/userNameEditText" />
 
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/regPasswordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -96,10 +96,10 @@
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="@id/leftGuideLine"
         app:layout_constraintRight_toRightOf="@id/rightGuideLine"
-        app:layout_constraintTop_toBottomOf="@id/phoneNumberEditText" />
+        app:layout_constraintTop_toBottomOf="@id/regPhoneNumberEditText" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
