@@ -12,6 +12,7 @@
         <activity android:name=".AppMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -21,6 +22,9 @@
         <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".AppMainActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:parentActivityName=".Login_Activity" />
 
     </application>
 
