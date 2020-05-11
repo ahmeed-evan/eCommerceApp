@@ -31,40 +31,6 @@ public class AppMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_main);
         ButterKnife.bind(this);
-        Paper.init(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        String userPhoneNumber=Paper.book().read(ConstrantKeys.USER_PHONE_NUMBER);
-        String userPassword=Paper.book().read(ConstrantKeys.USER_PASSWORD);
-        if (userPhoneNumber!= "" && userPassword != ""){
-            loginProcess(userPhoneNumber,userPassword);
-        }
-    }
-
-    private void loginProcess(String userPhoneNumber, String userPassword) {
-
-        final DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(ConstrantKeys.USERS).child(ConstrantKeys.PHONE_NUMBER).exists()){
-                    User user=dataSnapshot.child(ConstrantKeys.USERS).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
-                    if (user.getUSER_PHONE_NUMBER().equals(userPhoneNumber)){
-                        if (user.getUSER_PASSWORD().equals(userPassword)){
-                            startActivity(new Intent(AppMainActivity.this,HomeActivity.class));
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @OnClick(R.id.alreadyRegisteredButton)
