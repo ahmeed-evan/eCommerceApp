@@ -17,7 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 import io.paperdb.Paper;
 
 public class SplashActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 2500;
+    private static int SPLASH_TIME_OUT = 2000;
+    private String DATABASE_USER_KIND="USERS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,8 @@ public class SplashActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(ConstrantKeys.USERS).child(ConstrantKeys.PHONE_NUMBER).exists()) {
-                    User user = dataSnapshot.child(ConstrantKeys.USERS).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
+                if (dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).exists()) {
+                    User user = dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
                     if (user.getUSER_PHONE_NUMBER().equals(userPhoneNumber)) {
                         if (user.getUSER_PASSWORD().equals(userPassword)) {
                             startActivity(new Intent(SplashActivity.this, HomeActivity.class));

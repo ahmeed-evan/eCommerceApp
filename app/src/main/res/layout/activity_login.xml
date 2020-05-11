@@ -100,10 +100,11 @@
         android:text="Forgot Password"
         android:textColor="@color/DeepPink"
         android:textSize="16sp"
+        android:layout_marginTop="20dp"
         android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/rememberMeCheckBox"
+       app:layout_constraintTop_toBottomOf="@id/regPasswordEditText"
         app:layout_constraintRight_toRightOf="@id/rightGuideLine"
-        app:layout_constraintTop_toTopOf="@id/rememberMeCheckBox" />
+         />
 
 
     <Button
@@ -129,7 +130,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:elevation="2dp"
-        android:text="Mr.Admin"
+        android:text="I am a Admin"
         android:textColor="@color/DeepPink"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -141,7 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Not Admin"
+        android:text="Not a Admin"
         android:textColor="@color/DeepPink"
         android:textSize="16sp"
         android:textStyle="bold"

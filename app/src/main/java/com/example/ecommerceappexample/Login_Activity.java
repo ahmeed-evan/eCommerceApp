@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,6 +30,9 @@ import io.paperdb.Paper;
 
 public class Login_Activity extends AppCompatActivity {
 
+    private String DATABASE_USER_KIND = "USERS";
+    private ProgressDialog progressDialog;
+
     @BindView(R.id.regPhoneNumberEditText)
     EditText regPhoneNumberEditText;
     @BindView(R.id.regPasswordEditText)
@@ -37,8 +41,11 @@ public class Login_Activity extends AppCompatActivity {
     Button loginButton;
     @BindView(R.id.rememberMeCheckBox)
     CheckBox rememberMeCheckBox;
+    @BindView(R.id.adminTextView)
+    TextView adminTextView;
+    @BindView(R.id.notAdminTextView)
+    TextView notAdminTextView;
 
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,16 +57,14 @@ public class Login_Activity extends AppCompatActivity {
     }
 
 
-
-
     @OnClick(R.id.loginButton)
     public void onLoginButtonClicked() {
         String phoneNumber = regPhoneNumberEditText.getText().toString();
         String password = regPasswordEditText.getText().toString();
 
-        if (rememberMeCheckBox.isChecked()){
-           Paper.book().write(ConstrantKeys.USER_PHONE_NUMBER,phoneNumber);
-           Paper.book().write(ConstrantKeys.USER_PASSWORD,password);
+        if (rememberMeCheckBox.isChecked()) {
+            Paper.book().write(ConstrantKeys.USER_PHONE_NUMBER, phoneNumber);
+            Paper.book().write(ConstrantKeys.USER_PASSWORD, password);
         }
 
         if (TextUtils.isEmpty(phoneNumber)) {
@@ -73,21 +78,42 @@ public class Login_Activity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.adminTextView)
+    public void onAdminTextClicked() {
+        loginButton.setText("ADMIN LOGIN");
+        rememberMeCheckBox.setVisibility(View.GONE);
+        adminTextView.setVisibility(View.GONE);
+        notAdminTextView.setVisibility(View.VISIBLE);
+        this.DATABASE_USER_KIND = "ADMINS";
+    }
 
     private void loginProcess(String phoneNumber, String password) {
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(ConstrantKeys.USERS).child(ConstrantKeys.PHONE_NUMBER).exists()) {
-                    User user = dataSnapshot.child(ConstrantKeys.USERS).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
-                    if (user.getUSER_PHONE_NUMBER().equals(phoneNumber)) {
-                        if (user.getUSER_PASSWORD().equals(password)) {
-                            progressDialog.dismiss();
-                            startActivity(new Intent(Login_Activity.this, HomeActivity.class));
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(Login_Activity.this, "Password Is Incorrect! ", Toast.LENGTH_SHORT).show();
+                if (dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).exists()) {
+                    if (DATABASE_USER_KIND.equals("ADMINS")) {
+                        User user = dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
+                        if (user.getUSER_PHONE_NUMBER().equals(phoneNumber)) {
+                            if (user.getUSER_PASSWORD().equals(password)) {
+                                progressDialog.dismiss();
+                                startActivity(new Intent(Login_Activity.this, AdminActivity.class));
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(Login_Activity.this, "Phone Number or Password Is Incorrect! ", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else if (DATABASE_USER_KIND.equals("USERS")) {
+                        User user = dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
+                        if (user.getUSER_PHONE_NUMBER().equals(phoneNumber)) {
+                            if (user.getUSER_PASSWORD().equals(password)) {
+                                progressDialog.dismiss();
+                                startActivity(new Intent(Login_Activity.this, HomeActivity.class));
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(Login_Activity.this, "Phone Number or Password Is Incorrect! ", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 } else {
