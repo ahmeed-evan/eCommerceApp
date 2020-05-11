@@ -87,14 +87,23 @@ public class Login_Activity extends AppCompatActivity {
         this.DATABASE_USER_KIND = "ADMINS";
     }
 
+    @OnClick(R.id.notAdminTextView)
+    public void onNotAdminTextClicked() {
+        loginButton.setText("LOGIN");
+        rememberMeCheckBox.setVisibility(View.VISIBLE);
+        adminTextView.setVisibility(View.VISIBLE);
+        notAdminTextView.setVisibility(View.GONE);
+        this.DATABASE_USER_KIND = "USERS";
+    }
+
     private void loginProcess(String phoneNumber, String password) {
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).exists()) {
+                if (dataSnapshot.child(DATABASE_USER_KIND).child(phoneNumber).exists()) {
                     if (DATABASE_USER_KIND.equals("ADMINS")) {
-                        User user = dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
+                        User user = dataSnapshot.child(DATABASE_USER_KIND).child(phoneNumber).getValue(User.class);
                         if (user.getUSER_PHONE_NUMBER().equals(phoneNumber)) {
                             if (user.getUSER_PASSWORD().equals(password)) {
                                 progressDialog.dismiss();
@@ -105,7 +114,7 @@ public class Login_Activity extends AppCompatActivity {
                             }
                         }
                     } else if (DATABASE_USER_KIND.equals("USERS")) {
-                        User user = dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
+                        User user = dataSnapshot.child(DATABASE_USER_KIND).child(phoneNumber).getValue(User.class);
                         if (user.getUSER_PHONE_NUMBER().equals(phoneNumber)) {
                             if (user.getUSER_PASSWORD().equals(password)) {
                                 progressDialog.dismiss();

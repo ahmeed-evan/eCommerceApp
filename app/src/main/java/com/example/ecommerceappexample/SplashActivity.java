@@ -47,8 +47,8 @@ public class SplashActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).exists()) {
-                    User user = dataSnapshot.child(DATABASE_USER_KIND).child(ConstrantKeys.PHONE_NUMBER).getValue(User.class);
+                if (dataSnapshot.child(DATABASE_USER_KIND).child(userPhoneNumber).exists()) {
+                    User user = dataSnapshot.child(DATABASE_USER_KIND).child(userPhoneNumber).getValue(User.class);
                     if (user.getUSER_PHONE_NUMBER().equals(userPhoneNumber)) {
                         if (user.getUSER_PASSWORD().equals(userPassword)) {
                             startActivity(new Intent(SplashActivity.this, HomeActivity.class));
