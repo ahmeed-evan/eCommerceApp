@@ -24,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.paperdb.Paper;
 
@@ -107,7 +106,7 @@ public class Login_Activity extends AppCompatActivity {
                         if (user.getUSER_PHONE_NUMBER().equals(phoneNumber)) {
                             if (user.getUSER_PASSWORD().equals(password)) {
                                 progressDialog.dismiss();
-                                startActivity(new Intent(Login_Activity.this, AdminActivity.class));
+                                startActivity(new Intent(Login_Activity.this, ProductCatagoryForAdminActivity.class));
                             } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(Login_Activity.this, "Phone Number or Password Is Incorrect! ", Toast.LENGTH_SHORT).show();
